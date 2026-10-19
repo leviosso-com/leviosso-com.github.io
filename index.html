@@ -1,13 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>leviosso</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Under maintenance</title>
+<meta name="description" content="This site is under maintenance and will be back soon.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚧</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e2a47;      /* blueprint blue */
+  --deep:#08192c;    /* shadow blue */
+  --chalk:#eef4fb;   /* drawing lines */
+  --yellow:#ffc60a;  /* safety yellow */
+  --orange:#ff7a1a;  /* cone */
+  --grid:rgba(238,244,251,.07);
+}
+*{box-sizing:border-box;margin:0}
+body{
+  min-height:100vh;min-height:100svh;display:flex;flex-direction:column;
+  background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  color:var(--chalk);
+  font-family:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;
+}
+
+/* moving hazard tape */
+.tape{
+  flex:none;height:16px;
+  background:repeating-linear-gradient(-45deg,var(--yellow) 0 16px,var(--deep) 16px 32px);
+  background-size:45.25px 45.25px;
+  animation:tape 1.4s linear infinite;
+}
+@keyframes tape{to{background-position-x:45.25px}}
+
+main{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:28px 20px;
+}
+.scene{width:min(640px,100%);height:auto;overflow:visible}
+
+h1{
+  font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  font-weight:700;font-size:clamp(46px,9vw,86px);line-height:1;letter-spacing:.01em;
+  margin-top:10px;
+}
+p{
+  max-width:34ch;margin-top:16px;
+  font-size:clamp(17px,2.4vw,20px);line-height:1.5;color:rgba(238,244,251,.85);
+}
+
+/* progress bar */
+.bar{width:min(360px,80vw);height:12px;margin-top:28px;border:2px solid var(--yellow);overflow:hidden;position:relative}
+.bar i{
+  position:absolute;top:0;bottom:0;left:0;width:35%;
+  background:repeating-linear-gradient(-45deg,var(--yellow) 0 8px,var(--deep) 8px 16px);
+  animation:slide 1.8s ease-in-out infinite;
+}
+@keyframes slide{from{transform:translateX(-100%)}to{transform:translateX(290%)}}
+
+button{
+  margin-top:28px;display:inline-flex;align-items:center;gap:10px;
+  font:600 18px/1 "Barlow",system-ui,Arial,sans-serif;
+  background:var(--yellow);color:#0b1f36;border:0;padding:14px 22px;cursor:pointer;
+  transition:transform .15s;
+}
+button:hover{transform:translateY(-2px)}
+button:focus-visible{outline:3px solid var(--chalk);outline-offset:3px}
+button svg{transition:transform .5s}
+button:hover svg{transform:rotate(180deg)}
+
+/* scene animation */
+.fl{animation-duration:12s;animation-iteration-count:infinite;animation-timing-function:ease-out}
+.f1{animation-name:f1}.f2{animation-name:f2}.f3{animation-name:f3}
+.f4{animation-name:f4}.f5{animation-name:f5}.roof{animation-name:fr}
+@keyframes f1{0%,3%{opacity:0;transform:translateY(-26px)}8%,92%{opacity:1;transform:none}97%,100%{opacity:0;transform:none}}
+@keyframes f2{0%,16%{opacity:0;transform:translateY(-26px)}21%,92%{opacity:1;transform:none}97%,100%{opacity:0;transform:none}}
+@keyframes f3{0%,29%{opacity:0;transform:translateY(-26px)}34%,92%{opacity:1;transform:none}97%,100%{opacity:0;transform:none}}
+@keyframes f4{0%,42%{opacity:0;transform:translateY(-26px)}47%,92%{opacity:1;transform:none}97%,100%{opacity:0;transform:none}}
+@keyframes f5{0%,55%{opacity:0;transform:translateY(-26px)}60%,92%{opacity:1;transform:none}97%,100%{opacity:0;transform:none}}
+@keyframes fr{0%,68%{opacity:0;transform:translateY(-26px)}73%,92%{opacity:1;transform:none}97%,100%{opacity:0;transform:none}}
+
+.bob{animation:bob 1.56s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(14px)}50%{transform:translateY(0)}}
+.swing{transform-origin:390px 79px;animation:swing 3.12s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+.gear{transform-box:fill-box;transform-origin:center}
+.g1{animation:spin 12s linear infinite}
+.g2{animation:spin 7.6s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
 </head>
 <body>
-    <h1>
-        Hello World!
-    </h1>
+<div class="tape" aria-hidden="true"></div>
+
+<main>
+  <svg class="scene" viewBox="0 0 640 360" role="img" aria-label="A crane building a tower, floor by floor">
+    <defs>
+      <pattern id="lat" width="26" height="26" patternUnits="userSpaceOnUse">
+        <path d="M0 0L26 26M26 0L0 26" stroke="#ffc60a" stroke-width="1.5" fill="none"/>
+      </pattern>
+    </defs>
+
+    <!-- ground -->
+    <path d="M20 320H620" stroke="#eef4fb" stroke-width="2"/>
+    <path d="M40 332H600" stroke="#eef4fb" stroke-opacity=".3" stroke-width="2" stroke-dasharray="14 10"/>
+
+    <!-- tower floors, built one by one -->
+    <g stroke="#eef4fb" stroke-width="2">
+      <g class="fl f1"><rect x="330" y="284" width="120" height="36" fill="#eef4fb" fill-opacity=".07"/>
+        <g stroke="#ffc60a" stroke-width="1.5" fill="#ffc60a" fill-opacity=".25"><rect x="346" y="295" width="18" height="14"/><rect x="381" y="295" width="18" height="14"/><rect x="416" y="295" width="18" height="14"/></g></g>
+      <g class="fl f2"><rect x="330" y="248" width="120" height="36" fill="#eef4fb" fill-opacity=".07"/>
+        <g stroke="#ffc60a" stroke-width="1.5" fill="#ffc60a" fill-opacity=".25"><rect x="346" y="259" width="18" height="14"/><rect x="381" y="259" width="18" height="14"/><rect x="416" y="259" width="18" height="14"/></g></g>
+      <g class="fl f3"><rect x="330" y="212" width="120" height="36" fill="#eef4fb" fill-opacity=".07"/>
+        <g stroke="#ffc60a" stroke-width="1.5" fill="#ffc60a" fill-opacity=".25"><rect x="346" y="223" width="18" height="14"/><rect x="381" y="223" width="18" height="14"/><rect x="416" y="223" width="18" height="14"/></g></g>
+      <g class="fl f4"><rect x="330" y="176" width="120" height="36" fill="#eef4fb" fill-opacity=".07"/>
+        <g stroke="#ffc60a" stroke-width="1.5" fill="#ffc60a" fill-opacity=".25"><rect x="346" y="187" width="18" height="14"/><rect x="381" y="187" width="18" height="14"/><rect x="416" y="187" width="18" height="14"/></g></g>
+      <g class="fl f5"><rect x="330" y="140" width="120" height="36" fill="#eef4fb" fill-opacity=".07"/>
+        <g stroke="#ffc60a" stroke-width="1.5" fill="#ffc60a" fill-opacity=".25"><rect x="346" y="151" width="18" height="14"/><rect x="381" y="151" width="18" height="14"/><rect x="416" y="151" width="18" height="14"/></g></g>
+      <g class="fl roof"><rect x="324" y="132" width="132" height="8" fill="#eef4fb"/></g>
+    </g>
+
+    <!-- crane tower -->
+    <rect x="156" y="78" width="26" height="242" fill="url(#lat)" stroke="#ffc60a" stroke-width="3"/>
+    <rect x="144" y="308" width="50" height="12" fill="#ffc60a"/>
+    <rect x="150" y="62" width="38" height="18" fill="#ffc60a"/>
+    <!-- jib and counter jib -->
+    <g stroke="#ffc60a" stroke-width="3" fill="none">
+      <path d="M188 58H470M188 72H470M80 58H188M80 72H188"/>
+      <path stroke-width="1.5" d="M188 72L202 58L216 72L230 58L244 72L258 58L272 72L286 58L300 72L314 58L328 72L342 58L356 72L370 58L384 72L398 58L412 72L426 58L440 72L454 58L468 72"/>
+    </g>
+    <path d="M169 62V36L470 58M169 36L80 58" stroke="#eef4fb" stroke-width="1.5" fill="none"/>
+    <rect x="84" y="72" width="30" height="26" fill="#ffc60a"/>
+    <rect x="382" y="72" width="16" height="7" fill="#ffc60a"/>
+
+    <!-- hook, cable and beam -->
+    <g class="bob">
+      <g class="swing">
+        <path d="M390 79V84" stroke="#eef4fb" stroke-width="2"/>
+        <rect x="384" y="84" width="12" height="8" fill="#ffc60a"/>
+        <path d="M390 92L368 104M390 92L412 104" stroke="#eef4fb" stroke-width="1.5"/>
+        <rect x="358" y="104" width="64" height="7" fill="#ffc60a"/>
+      </g>
+    </g>
+
+    <!-- gears -->
+    <g class="gear g1">
+      <circle cx="64" cy="284" r="22" fill="none" stroke="#ffc60a" stroke-width="8" stroke-dasharray="5.76 5.76"/>
+      <circle cx="64" cy="284" r="18" fill="#0e2a47" stroke="#ffc60a" stroke-width="2"/>
+      <path d="M64 284V270" stroke="#eef4fb" stroke-width="2"/>
+      <circle cx="64" cy="284" r="4" fill="#eef4fb"/>
+    </g>
+    <g class="gear g2">
+      <circle cx="100" cy="296" r="14" fill="none" stroke="#eef4fb" stroke-width="6" stroke-dasharray="5.5 5.5"/>
+      <circle cx="100" cy="296" r="11" fill="#0e2a47" stroke="#eef4fb" stroke-width="2"/>
+      <path d="M100 296V287" stroke="#ffc60a" stroke-width="2"/>
+      <circle cx="100" cy="296" r="3" fill="#ffc60a"/>
+    </g>
+
+    <!-- traffic cone -->
+    <path d="M510 320L516 294H528L534 320Z" fill="#ff7a1a"/>
+    <path d="M514 304H530L531 310H513Z" fill="#eef4fb"/>
+    <rect x="506" y="318" width="32" height="4" fill="#ff7a1a"/>
+  </svg>
+
+  <h1>Under maintenance</h1>
+  <p>We are making some improvements to the site. It will be back up and running soon.</p>
+
+  <div class="bar" role="progressbar" aria-label="Maintenance in progress"><i></i></div>
+
+  <button type="button" onclick="location.reload()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/>
+    </svg>
+    Check again
+  </button>
+</main>
+
+<div class="tape" aria-hidden="true"></div>
 </body>
 </html>
